@@ -1,18 +1,17 @@
 import subprocess
-import sys
 import os
-import pyuac
 from pyuac import main_requires_admin
 import socket
 
 hostname = socket.gethostname()
 local_ip = socket.gethostbyname(hostname)
 
+nbtstat_command = 'nbtstat -rr'
+netsh_reset_all = 'netsh int ip reset all'
+netsh_winsock_reset = 'netsh winsock reset'
+
 @main_requires_admin
 def main():
-    nbtstat_command = 'nbtstat -rr'
-    netsh_reset_all = 'netsh int ip reset all'
-    netsh_winsock_reset = 'netsh winsock reset'
     try:
         print("ipconfig/release") 
         subprocess.call(["ipconfig", "/release"], shell=True)
