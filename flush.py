@@ -10,19 +10,34 @@ local_ip = socket.gethostbyname(hostname)
 
 @main_requires_admin
 def main():
-    nbtstat_command = r'C:\Windows\Sysnative\nbtstat.exe'
+    nbtstat_command = 'nbtstat -rr'
+    netsh_reset_all = 'netsh int ip reset all'
+    netsh_winsock_reset = 'netsh winsock reset'
     try:
-        # subprocess.call(["ipconfig", "/release"], shell=True) # ok
-        # subprocess.call(["ipconfig", "/renew"], shell=True) # ok  
-        # subprocess.call(["ipconfig", "/flushdns"], shell=True) # ok  
-        # subprocess.call(["ipconfig", "/registerdns"], shell=True) # ok 
-        # print(local_ip)        
-        # result = os.popen('nbtstat -rr').read() # ok
-        # print(result) # ok
-        # output, _ = p.communicate() # Erro
-        # print(output.decode('utf-8'))
-        # subprocess.call(["netsh int ip reset all"], shell=True)
-        # subprocess.call(["netsh winsock reset"], shell=True)
+        print("ipconfig/release") 
+        subprocess.call(["ipconfig", "/release"], shell=True)
+
+        print("ipconfig/renew") 
+        subprocess.call(["ipconfig", "/renew"], shell=True)
+
+        print("ipconfig/flushdns") 
+        subprocess.call(["ipconfig", "/flushdns"], shell=True)
+
+        print("ipconfig/registerdns") 
+        subprocess.call(["ipconfig", "/registerdns"], shell=True) 
+
+        print(nbtstat_command)        
+        result_nbt = os.popen(nbtstat_command).read()
+        print(result_nbt)
+
+        print(netsh_reset_all)
+        resut_netsh_int_ip = os.popen(netsh_reset_all).read()
+
+        print(resut_netsh_int_ip)
+        resut_netsh_winsock_reset = os.popen(netsh_winsock_reset).read()
+        print(resut_netsh_winsock_reset)
+
+        print("ip local: " + local_ip)
         input("Press enter to close the window. >")
     except Exception:
         print("error")
