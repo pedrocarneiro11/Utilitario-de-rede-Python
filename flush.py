@@ -1,7 +1,8 @@
 import subprocess
 import os
-from pyuac import main_requires_admin
 import socket
+
+from pyuac import main_requires_admin
 
 hostname = socket.gethostname()
 local_ip = socket.gethostbyname(hostname)
@@ -43,5 +44,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
